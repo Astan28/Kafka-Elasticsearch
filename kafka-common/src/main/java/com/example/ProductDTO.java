@@ -1,20 +1,14 @@
-package com.example.ProductService;
+package com.example;
 
 
-import jakarta.persistence.*;
 
-@Entity
-public class Product {
+public class ProductDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
-    @Column(nullable = false, unique = true)
     private String name;
-
-    @Column(nullable = false)
     private String description;
+
+    public ProductDTO() {}
 
     public Long getId() {
         return id;
@@ -37,6 +31,12 @@ public class Product {
     }
 
     public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public ProductDTO(Long id, String name, String description) {
+        this.id = id;
+        this.name = name;
         this.description = description;
     }
 }

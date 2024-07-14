@@ -11,7 +11,16 @@
       <list>
         <option value="$PROJECT_DIR$/SearchService/pom.xml" />
         <option value="$PROJECT_DIR$/ProductService/pom.xml" />
+        <option value="$PROJECT_DIR$/common/pom.xml" />
+        <option value="$PROJECT_DIR$/commonmodule/pom.xml" />
+        <option value="$PROJECT_DIR$/kafka-common/pom.xml" />
       </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/common/pom.xml" />
+        <option value="$PROJECT_DIR$/commonmodule/pom.xml" />
+      </set>
     </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="17" project-jdk-type="JavaSDK">

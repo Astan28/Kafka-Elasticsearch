@@ -1,21 +1,18 @@
-package com.example.SearchService.document;
+package com.example.ProductService.model;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.elasticsearch.annotations.Document;
-import org.springframework.data.elasticsearch.annotations.Field;
-import org.springframework.data.elasticsearch.annotations.FieldType;
+import jakarta.persistence.*;
 
-@Document(indexName = "products")
+@Entity
 public class Product {
 
     @Id
-    @Field(type = FieldType.Keyword)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Field(type = FieldType.Text)
+    @Column(nullable = false, unique = true)
     private String name;
 
-    @Field(type = FieldType.Text)
+    @Column(nullable = false)
     private String description;
 
     public Product() {}
@@ -48,14 +45,5 @@ public class Product {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    @Override
-    public String toString() {
-        return "Product{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                '}';
     }
 }

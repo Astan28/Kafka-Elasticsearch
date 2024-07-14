@@ -1,5 +1,6 @@
-package com.example.searchservice.configuration;
+package com.example.SearchService.configuration;
 
+import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import org.apache.http.HttpHost;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
@@ -10,7 +11,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.elasticsearch.client.elc.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
-import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
 import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
 
 @Configuration
@@ -37,8 +37,8 @@ public class ElasticSearchConfig {
                 .build();
     }
 
-    @Bean
-    public ElasticsearchOperations elasticsearchRestTemplate(RestClient restClient) {
-        return new ElasticsearchTemplate(restClient);
+    @Bean(name = "elasticsearchTemplate")
+    public ElasticsearchOperations elasticsearchRestTemplate(ElasticsearchClient ElasticsearchClient) {
+        return new ElasticsearchTemplate(ElasticsearchClient);
     }
 }

@@ -1,11 +1,13 @@
-package com.example.ProductService;
+package com.example.ProductService.service;
 
+import com.example.ProductService.model.Product;
+import com.example.ProductService.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
-
+//import com.example.Product;
 import java.util.List;
 import java.util.Optional;
+import com.example.ProductDTO;
 
 @Service
 public class ProductService {
@@ -30,10 +32,12 @@ public class ProductService {
         }
 
         Product createdProduct = productRepository.save(product);
-        kafkaProducerService.sendMessage("CREATE", createdProduct);
+
+        ProductDTO productDTO = new ProductDTO(product.getId(), product.getName(), product.getDescription());
+
+        kafkaProducerService.sendMessage("CREATE", productDTO);
         return createdProduct;
     }
-
     public Product updateProduct(Long id, Product productData) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Product not found"));
@@ -42,7 +46,10 @@ public class ProductService {
         product.setDescription(productData.getDescription());
         Product updatedProduct =  productRepository.save(product);
 
-        kafkaProducerService.sendMessage("UPDATE", updatedProduct);
+        ProductDTO productDTO = new ProductDTO(updatedProduct.getId(), updatedProduct.getName(), updatedProduct.getDescription());
+
+
+        kafkaProducerService.sendMessage("UPDATE", productDTO);
         return updatedProduct;
 
     }
@@ -51,6 +58,10 @@ public class ProductService {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Product not found"));
         productRepository.delete(product);
-        kafkaProducerService.sendMessage("DELETE", product);
+        ProductDTO productDTO = new ProductDTO(product.getId(), product.getName(), product.getDescription());
+        kafkaProducerService.sendMessage("DELETE", productDTO);
     }
 }
+
+
+

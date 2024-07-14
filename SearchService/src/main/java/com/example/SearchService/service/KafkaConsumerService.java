@@ -1,25 +1,32 @@
 package com.example.SearchService.service;
 
-import com.example.SearchService.KafkaMessage;
+import com.example.KafkaMessage;
+import com.example.SearchService.document.Product;
 import com.example.SearchService.repository.ProductRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
 @Service
 public class KafkaConsumerService {
 
-    @Autowired
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
+
+    public KafkaConsumerService(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
 
     @KafkaListener(topics = "product-topic", groupId = "my-group")
     public void listen(KafkaMessage kafkaMessage) {
-        System.out.println("consumed action: "+ kafkaMessage.getAction() + "Product - " + kafkaMessage.getProduct());
+         System.out.println("Consumed action: " + kafkaMessage.getAction() + " Product - " + kafkaMessage.getProductDTO().getName());
+        Product product = new Product();
+        product.setId(kafkaMessage.getProductDTO().getId());
+        product.setName(kafkaMessage.getProductDTO().getName());
+        product.setDescription(kafkaMessage.getProductDTO().getDescription());
+        System.out.println("Product: " + product);
         if ("CREATE".equals(kafkaMessage.getAction()) || "UPDATE".equals(kafkaMessage.getAction())) {
-            productRepository.save(kafkaMessage.getProduct());
+            productRepository.save(product);
         } else if ("DELETE".equals(kafkaMessage.getAction())) {
-            productRepository.deleteById(kafkaMessage.getProduct().getId());
+            productRepository.deleteById(product.getId());
         }
-
     }
 }

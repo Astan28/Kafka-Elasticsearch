@@ -7,7 +7,7 @@ import org.springframework.kafka.annotation.EnableKafka;
 
 @SpringBootApplication
 @EnableKafka
-// @EnableElasticsearchRepositories(basePackages = "com.example.SearchService.repository")
+ // @EnableElasticsearchRepositories(basePackages = "com.example.SearchService.repository")
 public class SearchServiceApplication {
 
 	public static void main(String[] args) {
