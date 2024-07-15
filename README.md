@@ -5,7 +5,7 @@ This project consists of two microservices: ProductService and SearchService, wh
 
 - Product Service
   - Responsibilities: Manages product data, including creating, updating, and deleting products.
-  - Technologies Used: Spring Boot, Spring Data JPA, H2 database.
+  - Technologies Used: Spring Boot, Spring Data JPA, MySQL database.
   - Endpoints:
     - `POST /products`: Create a new product.
     - `PUT /products/{id}`: Update an existing product.
@@ -26,20 +26,20 @@ This project consists of two microservices: ProductService and SearchService, wh
 ##### Setting Up the Environment
 1. Clone the repository:
 ```
-git clone https://github.com/your-repo.git
-cd project-root
+git clone https://github.com/Astan28/Kafka-Elasticsearch.git
+cd kafka
 ```
 2. Build and install the common module:
 ```
-cd common
+cd kafka-common
 mvn clean install
 cd ..
 ```
 3. Build the `ProductService` and `SearchService`:
 ```
-cd product-service
+cd ProductService
 mvn clean package
-cd ../search-service
+cd ../SearchService
 mvn clean package
 cd ..
 ```
@@ -50,12 +50,12 @@ docker-compose up -d
 ```
 2. Run the `ProductService`:
 ```
-cd product-service
+cd ProductService
 mvn spring-boot:run
 ```
 3. Run the `SearchService`:
 ```
-cd search-service
+cd SearchService
 mvn spring-boot:run
 ```
 ##### Testing the Services
